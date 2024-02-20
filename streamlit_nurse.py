@@ -1,18 +1,18 @@
 #  streamlit run streamlit_nurse.py : streamlit 실행 명령 streamlit run "실행파일명"
+from dotenv import load_dotenv
+import os
+load_dotenv()
 from openai import OpenAI
 import streamlit as st
 import time
 
 assistant_id = "asst_lgZaU0e2nlpW8GJxMK4nGb13"
 
+API_KEY = os.environ['OPENAI_API_KEY']
+
 # thread_id = "thread_dXZl6AiXu7WPNY7Meiog1cUt" : 고정된 thread_id 사용시 적용, 지금은 변수로 정의하여 생성
 
 with st.sidebar:
-    openai_api_key = st.text_input("OpenAI API Key", key="chatbot_api_key", type="password", value="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")
-    "[Get an OpenAI API key](https://platform.openai.com/account/api-keys)"
-
-# 위에 내용은 사이드바에 표출되는 사항으로 편집하여 사용 가능함.
-
     client = OpenAI(api_key=openai_api_key)
    
     thread_id = st.text_input("thread ID")
@@ -35,10 +35,6 @@ for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
 if prompt := st.chat_input():
-    if not openai_api_key:
-        st.info("Please add your OpenAI API key to continue.")
-        st.stop()
-
     if not thread_id:
         st.info("Please add your thread ID to continue.")
         st.stop()
