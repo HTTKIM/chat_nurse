@@ -13,7 +13,7 @@ API_KEY = os.environ['OPENAI_API_KEY']
 # thread_id = "thread_dXZl6AiXu7WPNY7Meiog1cUt" : 고정된 thread_id 사용시 적용, 지금은 변수로 정의하여 생성
 
 with st.sidebar:
-    client = OpenAI(api_key=openai_api_key)
+    client = OpenAI(api_key=API_KEY)
    
     thread_id = st.text_input("thread ID")
 
